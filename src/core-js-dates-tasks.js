@@ -262,6 +262,7 @@ function getWeekNumberByDate(date) {
   return quantityWeek;
 }
 
+// console.log(getWeekNumberByDate(Date(2024, 1, 23)));
 /**
  * Returns the date of the next Friday the 13th from a given date.
  * Friday the 13th is considered an unlucky day in some cultures.
