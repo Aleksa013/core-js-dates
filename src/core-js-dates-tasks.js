@@ -279,10 +279,10 @@ function getNextFridayThe13th(date) {
   const month = day.getMonth();
   const year = day.getFullYear();
   let incurance = 0;
-  if (date.getTimezoneOffset() === 0 || date.getTimezoneOffset() < 0) {
+  if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
     day.setDate(day.getDate() + 1);
     day.setHours(day.getHours() - 1);
-  } else if (date.getTimezoneOffset() > 0) {
+  } else if (day.getTimezoneOffset() > 0) {
     day.setDate(day.getDate() - 1);
     day.setHours(day.getHours() + 1);
   }
@@ -312,7 +312,7 @@ function getNextFridayThe13th(date) {
   }
   return day;
 }
-// console.log(getNextFridayThe13th(Date(2024, 0, 13)));
+
 /**
  * Returns the quarter of the year for a given date.
  *
