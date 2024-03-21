@@ -280,9 +280,10 @@ function getNextFridayThe13th(date) {
   const year = day.getFullYear();
   let incurance = 0;
   if (date.getTimezoneOffset() === 0 || date.getTimezoneOffset() < 0) {
+    day.setDate(day.getDate() + 1);
     day.setHours(day.getHours() - 1);
   } else if (date.getTimezoneOffset() > 0) {
-    // day.setDate(day.getDate() - 1);
+    day.setDate(day.getDate() - 1);
     day.setHours(day.getHours() + 1);
   }
 
