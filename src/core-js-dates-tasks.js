@@ -213,13 +213,7 @@ function isDateInPeriod(date, period) {
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
 function formatDate(date) {
-  const day = new Date(date);
-  if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
-    day.setDate(day.getDate() + 1);
-  } else if (day.getTimezoneOffset() > 0) {
-    day.setDate(day.getDate() - 1);
-  }
-  return day.toLocaleString('en-US', { timeZone: 'UTC' });
+  return new Date(date).toLocaleString('en-US', { timeZone: 'UTC' });
 }
 
 /**
@@ -284,11 +278,11 @@ function getNextFridayThe13th(date) {
   const month = day.getMonth();
   const year = day.getFullYear();
   let incurance = 0;
-  if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
-    day.setDate(day.getDate() + 1);
-  } else if (day.getTimezoneOffset() > 0) {
-    day.setDate(day.getDate() - 1);
-  }
+  // if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
+  //   day.setHours(day.getHours() - 1);
+  // } else if (day.getTimezoneOffset() > 0) {
+  //   day.setHours(day.getHours() + 1);
+  // }
 
   const oldDay = day.getDate();
   if (oldDay > 13 && month < 11) {
@@ -330,9 +324,9 @@ function getNextFridayThe13th(date) {
 function getQuarter(date) {
   const day = new Date(date);
   const month = day.getMonth();
-  return Math.round(month / 3);
+  return Math.ceil((month + 1) / 3);
 }
-// console.log(getQuarter(Date(2024, 5, 1)));
+
 /**
  * Generates an employee's work schedule within a specified date range, based on a pattern of working and off days.
  * The start and end dates of the period are inclusive.
