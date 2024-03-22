@@ -213,7 +213,13 @@ function isDateInPeriod(date, period) {
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
 function formatDate(date) {
-  return new Date(date).toLocaleString('en-US', { timeZone: 'UTC' });
+  const day = new Date(date);
+  if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
+    day.setDate(day.getDate() + 1);
+  } else if (day.getTimezoneOffset() > 0) {
+    day.setDate(day.getDate() - 1);
+  }
+  return day.toLocaleString('en-US', { timeZone: 'UTC' });
 }
 
 /**
@@ -321,10 +327,12 @@ function getNextFridayThe13th(date) {
  * Date(2024, 5, 1) => 2
  * Date(2024, 10, 10) => 4
  */
-function getQuarter(/* date */) {
-  throw new Error('Not implemented');
+function getQuarter(date) {
+  const day = new Date(date);
+  const month = day.getMonth();
+  return Math.round(month / 3);
 }
-
+// console.log(getQuarter(Date(2024, 5, 1)));
 /**
  * Generates an employee's work schedule within a specified date range, based on a pattern of working and off days.
  * The start and end dates of the period are inclusive.
