@@ -213,7 +213,7 @@ function isDateInPeriod(date, period) {
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
 function formatDate(date) {
-  return new Date(date).toLocaleString('en-US', { timeZone: 'UTC' });
+  return new Date(date).toLocaleDateString('en-US', { timeZone: 'UTC' });
 }
 
 /**
@@ -278,11 +278,11 @@ function getNextFridayThe13th(date) {
   const month = day.getMonth();
   const year = day.getFullYear();
   let incurance = 0;
-  // if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
-  //   day.setHours(day.getHours() - 1);
-  // } else if (day.getTimezoneOffset() > 0) {
-  //   day.setHours(day.getHours() + 1);
-  // }
+  if (day.getTimezoneOffset() === 0 || day.getTimezoneOffset() < 0) {
+    day.setHours(day.getHours() - 1);
+  } else if (day.getTimezoneOffset() > 0) {
+    day.setHours(day.getHours() + 1);
+  }
 
   const oldDay = day.getDate();
   if (oldDay > 13 && month < 11) {
@@ -322,8 +322,7 @@ function getNextFridayThe13th(date) {
  * Date(2024, 10, 10) => 4
  */
 function getQuarter(date) {
-  const day = new Date(date);
-  const month = day.getMonth();
+  const month = new Date(date).getMonth();
   return Math.ceil((month + 1) / 3);
 }
 
@@ -361,8 +360,10 @@ function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
  * Date(2022, 2, 1) => false
  * Date(2020, 2, 1) => true
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  return !(
+    new Date(date).getUTCFullYear() % 4 && new Date(date).getUTCFullYear() % 400
+  );
 }
 
 module.exports = {
